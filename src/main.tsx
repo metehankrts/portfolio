@@ -1,13 +1,13 @@
 // src/main.tsx
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Projects from "./pages/Projects";
 import App from "./App";
 import CV from "./pages/CV";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: (
@@ -36,8 +36,6 @@ const router = createBrowserRouter([
 
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("Root element not found");
-
-// StrictMode'u kaldırdık
 createRoot(rootElement).render(
   <RouterProvider router={router} />
 );
