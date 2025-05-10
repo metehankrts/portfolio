@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import pdfCV from "../assets/Metehan_Karatas_CV.pdf";
 
 function CV() {
@@ -164,11 +165,11 @@ function CV() {
 
       <div>
         <h3 className="text-2xl font-medium text-gray-900 mb-4">Projects</h3>
-        <a href="/projects" rel="noopener noreferrer">
+        <Link to="/projects" rel="noopener noreferrer">
           <p className="text-green-600 italic">
             Click here to see projects about programming.
           </p>
-        </a>
+        </Link>
         <a
           href="https://metekrts.artstation.com/"
           target="_blank"

@@ -5,6 +5,7 @@ import profileF from "./assets/profilefront.jpeg";
 import profileB from "./assets/profileback.jpeg";
 import { icons } from "./constants/Icons";
 import SplashScreen from "./components/SplashScreen";
+import { Link } from "react-router-dom";
 
 function App() {
   const [flipped, setFlipped] = useState<boolean>(false);
@@ -173,12 +174,12 @@ function App() {
             e-commerce business. I'm also actively looking for new job
             opportunities in design or creative fields.
           </p>
-          <a
-            href="/cv"
+          <Link
+            to="/cv"
             className="block mt-6 text-right text-sm font-medium text-green-400 hover:text-green-700"
           >
             Read my CV →
-          </a>
+          </Link>
         </div>
 
         <div className="description mt-10">
