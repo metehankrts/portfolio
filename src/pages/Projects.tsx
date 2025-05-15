@@ -7,6 +7,7 @@ import onbir_gym from "../assets/onbir-gym.png";
 import onbir_guide from "../assets/onbir-guide.png";
 import onbir_gym_website from "../assets/onbir-gym-website.png";
 import figma from "../assets/icons/figma.png";
+import architecture_web from "../assets/architecture-web.png";
 
 //91-truncate metni tek satira sigdirir unutma
 
@@ -28,6 +29,15 @@ function Projects() {
       image: portfolio_project,
       githubUrl: "https://github.com/metehankrts/portfolio",
       customUrl: "https://github.com/metehankrts/portfolio",
+      figmaUrl: "not-ready",
+      status: "Last Revisions",
+    },
+    {
+      title: "Architecture Website",
+      description: "Architecture website for a client.",
+      image: architecture_web,
+      githubUrl: "https://metehankrts.github.io/architecture-react-web-app/#/",
+      customUrl: "https://metehankrts.github.io/architecture-react-web-app/#/",
       status: "Done",
     },
     {
@@ -77,110 +87,117 @@ function Projects() {
     },
   ];
 
+  //gözden geçireceğim bu state kısmını
+
+  const [hiddenStates, setHiddenStates] = useState<boolean[]>(Array(myProjects.length).fill(false));
+
+  const toggleHidden = (index: number, value: boolean) => {
+    const newHiddenStates = [...hiddenStates];
+    newHiddenStates[index] = value;
+    setHiddenStates(newHiddenStates);
+  };
+
   return (
     <div className="mx-auto">
       <h2 className="font-semibold text-3xl mb-10 text-black">My Projects</h2>
 
       <div className="grid grid-cols-1 gap-8">
-        {myProjects.map((project, index) => {
-          const [hidden, setHidden] = useState(false);
-          return (
-            <div key={index}>
-              <div className="relative overflow-hidden bg-white rounded-t-xl">
-                <div className="flex flex-wrap items-center gap-2 h-12 px-4 bg-gray-200 justify-between sm:gap-0">
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => setHidden(false)}
-                      className="w-3 h-3 bg-green-400 rounded-full"
-                      aria-label="Show All"
-                    ></button>
-                    <button
-                      onClick={() => setHidden(true)}
-                      className="w-3 h-3 bg-yellow-400 rounded-full"
-                    ></button>
-                    <button className="w-3 h-3 bg-red-400 rounded-full"></button>
-                  </div>
-
-                  <div className="px-3 py-1 bg-gray-100 rounded-full text-gray-600 text-xs truncate max-w-[60%] sm:max-w-full">
-                    {project.customUrl}
-                  </div>
+        {myProjects.map((project, index) => (
+          <div key={index}>
+            <div className="relative overflow-hidden bg-white rounded-t-xl">
+              <div className="flex flex-wrap items-center gap-2 h-12 px-4 bg-gray-200 justify-between sm:gap-0">
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => toggleHidden(index, false)}
+                    className="w-3 h-3 bg-green-400 rounded-full"
+                    aria-label="Show All"
+                  ></button>
+                  <button
+                    onClick={() => toggleHidden(index, true)}
+                    className="w-3 h-3 bg-yellow-400 rounded-full"
+                  ></button>
+                  <button className="w-3 h-3 bg-red-400 rounded-full"></button>
                 </div>
 
-                {!hidden && (
-                  <div className="relative overflow-hidden transition-all duration-250 rounded-b-xl group">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-56 sm:h-72 md:h-96 object-cover object-top transform transform-all duration-200 ease-in-out scale-[0.95] origin-bottom group-hover:scale-100 rounded-xl group-hover:rounded-none"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                <div className="px-3 py-1 bg-gray-100 rounded-full text-gray-600 text-xs truncate max-w-[60%] sm:max-w-full">
+                  {project.customUrl}
+                </div>
+              </div>
+
+              {!hiddenStates[index] && (
+                <div className="relative overflow-hidden transition-all duration-250 rounded-b-xl group">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-56 sm:h-72 md:h-96 object-cover object-top transform transform-all duration-200 ease-in-out scale-[0.95] origin-bottom group-hover:scale-100 rounded-xl group-hover:rounded-none"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                </div>
+              )}
+
+              <div className="mt-4 flex flex-col gap-2">
+                <h3 className="font-semibold text-xl sm:text-2xl text-black">
+                  {project.title}
+                </h3>
+                <p className="text-gray-600 text-sm sm:text-base">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-3">
+                  <div className="flex gap-2">
+                    <a
+                      href={project.githubUrl || undefined}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center justify-center rounded-md border border-gray-300 bg-gray-50 h-10 p-4 transition-colors shadow-sm ${
+                        !project.githubUrl
+                          ? "pointer-events-none opacity-50 cursor-not-allowed"
+                          : "hover:bg-gray-100"
+                      }`}
+                    >
+                      <img
+                        src={github}
+                        alt="GitHub Logo"
+                        className="w-6 h-6 sm:w-4 sm:h-4 mr-2"
+                      />
+                      <span className="text-sm sm:text-xs text-gray-800">
+                        GitHub
+                      </span>
+                    </a>
+
+                    <a
+                      href={project.figmaUrl || undefined}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center justify-center rounded-md border border-gray-300 bg-gray-50 h-10 p-4 transition-colors shadow-sm ${
+                        !project.figmaUrl
+                          ? "pointer-events-none opacity-50 cursor-not-allowed"
+                          : "hover:bg-gray-100"
+                      }`}
+                    >
+                      <img
+                        src={figma}
+                        alt="Figma Logo"
+                        className="w-6 h-6 sm:w-4 sm:h-4 mr-2"
+                      />
+                      <span className="text-sm sm:text-xs text-gray-800">
+                        Figma
+                      </span>
+                    </a>
                   </div>
-                )}
 
-                <div className="mt-4 flex flex-col gap-2">
-                  <h3 className="font-semibold text-xl sm:text-2xl text-black">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm sm:text-base">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-3">
-                    <div className="flex gap-2">
-                      <a
-                        href={project.githubUrl || undefined}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`inline-flex items-center justify-center rounded-md border border-gray-300 bg-gray-50 h-10 p-4 transition-colors shadow-sm ${
-                          !project.githubUrl
-                            ? "pointer-events-none opacity-50 cursor-not-allowed"
-                            : "hover:bg-gray-100"
-                        }`}
-                      >
-                        <img
-                          src={github}
-                          alt="GitHub Logo"
-                          className="w-6 h-6 sm:w-4 sm:h-4 mr-2"
-                        />
-                        <span className="text-sm sm:text-xs text-gray-800">
-                          GitHub
-                        </span>
-                      </a>
-
-                      <a
-                        href={project.figmaUrl || undefined}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`inline-flex items-center justify-center rounded-md border border-gray-300 bg-gray-50 h-10 p-4 transition-colors shadow-sm ${
-                          !project.figmaUrl
-                            ? "pointer-events-none opacity-50 cursor-not-allowed"
-                            : "hover:bg-gray-100"
-                        }`}
-                      >
-                        <img
-                          src={figma}
-                          alt="Figma Logo"
-                          className="w-6 h-6 sm:w-4 sm:h-4 mr-2"
-                        />
-                        <span className="text-sm sm:text-xs text-gray-800">
-                          Figma
-                        </span>
-                      </a>
+                  {project.status && (
+                    <div className="inline-flex items-center justify-center rounded-md bg-black hover:bg-white h-10 px-4 py-2 transition-colors shadow-sm text-white hover:text-black">
+                      <span className="text-sm font-medium">
+                        # {project.status}
+                      </span>
                     </div>
-
-                    {project.status && (
-                      <div className="inline-flex items-center justify-center rounded-md bg-black hover:bg-white h-10 px-4 py-2 transition-colors shadow-sm text-white hover:text-black">
-                        <span className="text-sm font-medium">
-                          # {project.status}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );

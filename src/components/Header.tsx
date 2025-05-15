@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 function Headers() {
   return (
     <header className="top-0 z-10 h-20 flex items-center justify-between">
-      <a href="/" className="flex items-center">
+      <Link to="/" className="flex items-center">
         <div className="hidden sm:block font-bold font-mono text-2xl group">
           <span className="text-animation">
             ME<span className="space"> </span>TE
           </span>
         </div>
         <div className="sm:hidden font-bold font-mono text-2xl">MT</div>
-      </a>
+      </Link>
 
       <nav className="flex gap-4 sm:gap-8">
         <Link
